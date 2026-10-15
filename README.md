@@ -3,8 +3,11 @@
 # Nome do app
 
 **Membros:** Bruna Steffens, Leticia Galego, Nathany Ferreira
+
 **Dataset:** vulcoes.csv + volcano.si.edu
+
 **App publicado:** https://...streamlit.app
+
 ## Funcionalidades
 - [] Leitura do CSV
 - [] Conversão das colunas
@@ -22,12 +25,15 @@ mostrar todos
 Menu lateral com uma nova página com os tipos de vulcões mais comuns (top 10)
 ## Como rodar
 Clique em Fork (canto superior direito) para criar a sua cópia deste repositório.
+
 No VS Code: Ctrl+Shift+P → Git: Clone → cole o link do seu fork.
+
 No terminal do VS Code (PowerShell), dentro da pasta do repositório:
-´´´
+
+```bash
 python -m venv .venv
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass   # libera o script de ativação só nesta janela
 .venv\Scripts\Activate.ps1
 pip install -r dashboard-vulcoes/requirements.txt
 streamlit run dashboard-vulcoes/app.py
-´´´
+```
