@@ -36,6 +36,7 @@ def converter_colunas(vulcoes):
         vulcao["longitude"] = converter_numero(vulcao["longitude"])
         vulcao["faixa_altitude"] = classificar_altitude(vulcao["altitude_m"])
         vulcao["tipo"] = padronizar_tipo(vulcao["tipo"])
+        vulcao["ultima_erupcao"] = padronizar_erupcao(vulcao["ultima_erupcao"])
     return vulcoes
 
 def ler_arquivo():
@@ -82,6 +83,22 @@ def padronizar_tipo(tipo):
 
     return tipo
 
+def padronizar_erupcao(erupcao):
+    if erupcao == "Unknown":
+        return "Desconhecido"
+
+    return int(erupcao)
+
+def vulcao_erupcao_mais_recente(vulcoes):
+    vulcao_recente = vulcoes[0]
+
+    for vulcao in vulcoes:
+        if vulcao["ultima_erupcao"] != "Desconhecido":
+            if vulcao["ultima_erupcao"] > vulcao_recente["ultima_erupcao"]:
+                vulcao_recente = vulcao
+
+    return vulcao_recente
+
 if __name__ == "__main__":
 
     vulcoes = ler_arquivo()
@@ -89,3 +106,5 @@ if __name__ == "__main__":
     pais_mais_vulcoes, quantidade_maior_pais = pais_com_mais_vulcoes(vulcoes)
 
     print(pais_mais_vulcoes, quantidade_maior_pais)
+
+    print(type(vulcoes[0]["ultima_erupcao"]))

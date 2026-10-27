@@ -10,7 +10,7 @@ def montar_tabela(vulcoes):
         linha = {
             "Nome": vulcao["nome"],
             "Tipo": vulcao["tipo"],
-            "Última Erupção": vulcao["ultima_erupcao"],
+            "Última Erupção": padronizacao_ultima_erupcao(vulcao["ultima_erupcao"]),
             "País": vulcao["pais"],
             "Região": vulcao["regiao"],
             "Altitude (m)": vulcao["altitude_m"],
@@ -20,6 +20,13 @@ def montar_tabela(vulcoes):
         }
         tabela.append(linha)
     return tabela
+
+def padronizacao_ultima_erupcao(erupcao):
+    if erupcao != "Desconhecido":
+        if erupcao < 0:
+            return f"{abs(erupcao)} a.C."
+
+    return erupcao
 
 def listar_tipos(vulcoes):
     """Junta todos os tipos de vulcoes em uma lista"""
@@ -86,9 +93,13 @@ def main():
     pais_vulcoes, qtd_vulcoes_pais = dados.pais_com_mais_vulcoes(vulcoes)
 
     qtd_vulcoes = len(vulcoes)
+
+    vulcao_recente = dados.vulcao_erupcao_mais_recente(vulcoes)
+
     col1.metric("Total de Vulcões", qtd_vulcoes)
     col2.metric("Países", len(dados.quantidade_vulcoes_por_pais(vulcoes)))
-    col3.metric("País com mais vulcões", pais_vulcoes, f"{qtd_vulcoes_pais} vulcões")
+    col3.metric(label="País com mais vulcões", value=pais_vulcoes, delta=f"{qtd_vulcoes_pais} vulcões", delta_arrow="off")
+    col4.metric(label="Vulcão com erupção mais recente", value=vulcao_recente["nome"], delta=f"País: {vulcao_recente["pais"]} | Ano: {vulcao_recente["ultima_erupcao"]}", delta_arrow="off")
 
     col_busca, col_filtro_tipo, col_filtro_regiao = st.columns(3)
 
