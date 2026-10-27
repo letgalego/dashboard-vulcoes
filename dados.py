@@ -9,13 +9,41 @@ import csv
 PASTA = Path(__file__).parent
 CAMINHO_CSV = PASTA / "vulcoes.csv"
 
+def converter_numero(valor):
+    """Converte texto do CSV em número. Retorna None se estiver vazio ou inválido."""
+    try:
+        return float(valor)
+    except (TypeError, ValueError):
+        return None
+
+
+def classificar_altitude(altitude):
+    """Devolve a faixa de altitude de um vulcão."""
+    if altitude is None:
+        return "Sem dados"
+    if altitude < 1000:
+        return "Baixa (< 1000 m)"
+    if altitude < 3000:
+        return "Média (1000 a 2999 m)"
+    return "Alta (≥ 3000 m)"
+
+
+def converter_colunas(vulcoes):
+    """Converte as colunas numéricas e cria a faixa de altitude."""
+    for vulcao in vulcoes:
+        vulcao["altitude_m"] = converter_numero(vulcao["altitude_m"])
+        vulcao["latitude"] = converter_numero(vulcao["latitude"])
+        vulcao["longitude"] = converter_numero(vulcao["longitude"])
+        vulcao["faixa_altitude"] = classificar_altitude(vulcao["altitude_m"])
+    return vulcoes
+
 def ler_arquivo():
     vulcoes = []
     with open(CAMINHO_CSV, "r", encoding="utf-8") as arquivo:
         leitor = csv.DictReader(arquivo)
         for linha in leitor:
             vulcoes.append(linha)
-    return vulcoes
+    return converter_colunas(vulcoes)
 
 def quantidade_vulcoes_por_pais(vulcoes):
     """Retorna um dicionário com a quantidade de vulcões por país."""
