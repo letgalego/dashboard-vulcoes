@@ -29,12 +29,13 @@ def classificar_altitude(altitude):
 
 
 def converter_colunas(vulcoes):
-    """Converte as colunas numéricas e cria a faixa de altitude."""
+    """Converte as colunas e cria a faixa de altitude."""
     for vulcao in vulcoes:
         vulcao["altitude_m"] = converter_numero(vulcao["altitude_m"])
         vulcao["latitude"] = converter_numero(vulcao["latitude"])
         vulcao["longitude"] = converter_numero(vulcao["longitude"])
         vulcao["faixa_altitude"] = classificar_altitude(vulcao["altitude_m"])
+        vulcao["tipo"] = padronizar_tipo(vulcao["tipo"])
     return vulcoes
 
 def ler_arquivo():
@@ -55,3 +56,36 @@ def quantidade_vulcoes_por_pais(vulcoes):
         else:
             contagem[pais] = 1
     return contagem
+
+def pais_com_mais_vulcoes(vulcoes):
+    """Retorna o nome do país com maior quantidade de vulcões, e também, sua quantidade."""
+    contagem = quantidade_vulcoes_por_pais(vulcoes)
+
+    pais_mais_vulcoes = max(contagem, key=contagem.get) # pega o pais com a > quantidade de vulcoes, o max() compara 
+                                                        # todos os valores da contagem e retorna a chave com o maior valor
+    return pais_mais_vulcoes, contagem[pais_mais_vulcoes]
+
+def padronizar_tipo(tipo):
+    tipos = {
+        "Stratovolcano(es)": "Stratovolcano",
+        "Shield(s)": "Shield",
+        "Caldera(s)": "Caldera",
+        "Complex(es)": "Complex",
+        "Lava cone(es)": "Lava cone",
+        "Lava cone(s)": "Lava cone",
+        "Lava dome(s)": "Lava dome",
+        "Pyroclastic cone(s)": "Pyroclastic cone",
+        "Tuff cone(s)": "Tuff cone",
+    }
+    if tipo in tipos:
+        return tipos[tipo]
+
+    return tipo
+
+if __name__ == "__main__":
+
+    vulcoes = ler_arquivo()
+
+    pais_mais_vulcoes, quantidade_maior_pais = pais_com_mais_vulcoes(vulcoes)
+
+    print(pais_mais_vulcoes, quantidade_maior_pais)
