@@ -9,18 +9,18 @@
 **App publicado:** https://...streamlit.app
 
 ## Funcionalidades
-- [] Leitura do CSV
-- [] Conversão das colunas
-- [] Mostrar no mínimo 3 métricas sobre o dataset
-- [] Classificar os registros em faixas a partir de uma coluna numérica e mostrar a faixa na tabela
-- [] Uma tabela com os dados e nomes de coluna legíveis
-- [] Uma busca por texto que não diferencie maiúsculas de minúsculas
-- [] Um filtro por categoria, com as opções dos próprios dados (sem escrever à mão) e uma opção para
+- [x] Leitura do CSV
+- [x] Conversão das colunas
+- [x] Mostrar no mínimo 3 métricas sobre o dataset
+- [x] Classificar os registros em faixas a partir de uma coluna numérica e mostrar a faixa na tabela
+- [x] Uma tabela com os dados e nomes de coluna legíveis
+- [x] Uma busca por texto que não diferencie maiúsculas de minúsculas
+- [x] Um filtro por categoria, com as opções dos próprios dados (sem escrever à mão) e uma opção para
 mostrar todos
-- [] Busca e filtro funcionando juntos
-- [] Uma mensagem quando nenhum resultado for encontrado
-- [] Código organizado em funções e módulos, com nomes que façam sentido no tema do grupo
-- [] App publicado no Streamlit Community Cloud
+- [x] Busca e filtro funcionando juntos
+- [x] Uma mensagem quando nenhum resultado for encontrado
+- [x] Código organizado em funções e módulos, com nomes que façam sentido no tema do grupo
+- [x] App publicado no Streamlit Community Cloud
 ## Funcionalidade extra
 Menu lateral com uma nova página com os tipos de vulcões mais comuns (top 10)
 ## Como rodar
