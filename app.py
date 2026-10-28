@@ -21,6 +21,7 @@ def montar_tabela(vulcoes):
     return tabela
 
 def padronizacao_ultima_erupcao(erupcao):
+    """Padroniza os anos para mostrar na tabela. Se ano for negativo, mostra como abs(ano) a.C."""
     if erupcao != "Desconhecido":
         if erupcao < 0:
             return f"{abs(erupcao)} a.C."
