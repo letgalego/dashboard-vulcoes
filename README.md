@@ -6,7 +6,7 @@
 
 **Dataset:** vulcoes.csv + volcano.si.edu
 
-**App publicado:** https://...streamlit.app
+**App publicado:** [https://...streamlit.app](https://dashboard-vulcoes-python.streamlit.app/)
 
 ## Funcionalidades
 - [x] Leitura do CSV
