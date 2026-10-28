@@ -22,6 +22,7 @@ def montar_tabela(vulcoes):
     return tabela
 
 def padronizacao_ultima_erupcao(erupcao):
+    """Padroniza os anos para mostrar na tabela. Se ano for negativo, mostra como abs(ano) a.C."""
     if erupcao != "Desconhecido":
         if erupcao < 0:
             return f"{abs(erupcao)} a.C."
@@ -83,6 +84,7 @@ def filtrar_por_regiao(vulcoes, regiao):
     return vulcoes_encontrados
 
 def main():
+    st.set_page_config(page_title="Dashboard de Vulcões", page_icon="🌋", layout="wide")
     add_selectbox = st.sidebar.selectbox(
     "Navegação:",
     ("HomePage", "Tipos de Vulcões")
@@ -107,7 +109,6 @@ def main():
     
     #SIDEBAR HOMEPAGE
     else:
-        st.set_page_config(page_title="Dashboard de Vulcões", page_icon="🌋", layout="wide")
         st.title("🌋 Dashboard de Vulcões")
 
         vulcoes = dados.ler_arquivo()
