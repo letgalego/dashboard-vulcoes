@@ -8,6 +8,7 @@ import csv
 # mesmo quando é executado a partir de outra pasta (como no Streamlit Cloud).
 PASTA = Path(__file__).parent
 CAMINHO_CSV = PASTA / "vulcoes.csv"
+CAMINHO_CSV2 = PASTA / "tipos.csv"
 
 def converter_numero(valor):
     """Converte texto do CSV em número. Retorna None se estiver vazio ou inválido."""
@@ -46,6 +47,14 @@ def ler_arquivo():
         for linha in leitor:
             vulcoes.append(linha)
     return converter_colunas(vulcoes)
+
+def ler_tipos_de_vulcao():
+    tipos = []
+    with open(CAMINHO_CSV2, "r", encoding="utf-8") as arquivo:
+        leitor = csv.DictReader(arquivo, delimiter=";")
+        for linha in leitor:
+            tipos.append(linha)
+    return tipos
 
 def quantidade_vulcoes_por_pais(vulcoes):
     """Retorna um dicionário com a quantidade de vulcões por país."""
@@ -108,3 +117,4 @@ if __name__ == "__main__":
     print(pais_mais_vulcoes, quantidade_maior_pais)
 
     print(type(vulcoes[0]["ultima_erupcao"]))
+    print(ler_tipos_de_vulcao())
