@@ -86,6 +86,8 @@ def padronizar_tipo(tipo):
         "Lava dome(s)": "Lava dome",
         "Pyroclastic cone(s)": "Pyroclastic cone",
         "Tuff cone(s)": "Tuff cone",
+        "Fissure vent(s)": "Fissure vent",
+        "Maar(s)": "Maar",
     }
     if tipo in tipos:
         return tipos[tipo]
@@ -99,14 +101,25 @@ def padronizar_erupcao(erupcao):
     return int(erupcao)
 
 def vulcao_erupcao_mais_recente(vulcoes):
-    vulcao_recente = vulcoes[0]
+    vulcao_recente = None
 
     for vulcao in vulcoes:
-        if vulcao["ultima_erupcao"] != "Desconhecido":
-            if vulcao["ultima_erupcao"] > vulcao_recente["ultima_erupcao"]:
+        ano = vulcao["ultima_erupcao"]
+        if ano != "Desconhecido":
+            if vulcao_recente is None or ano > vulcao_recente["ultima_erupcao"]:
                 vulcao_recente = vulcao
 
     return vulcao_recente
+
+def top_tipos(vulcoes, quantidade=10):
+    """Retorna os tipos de vulcão mais comuns, como lista de (tipo, quantidade)."""
+    contagem = {}
+    for vulcao in vulcoes:
+        tipo = vulcao["tipo"]
+        contagem[tipo] = contagem.get(tipo, 0) + 1
+
+    ordenados = sorted(contagem.items(), key=lambda item: item[1], reverse=True)
+    return ordenados[:quantidade]
 
 if __name__ == "__main__":
 

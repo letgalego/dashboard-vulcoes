@@ -1,5 +1,4 @@
-""" Dashboard com informacoes sobre vulcoes
-"""
+""" Dashboard com informacoes sobre vulcoes """
 import streamlit as st
 import dados
 
@@ -83,6 +82,7 @@ def filtrar_por_regiao(vulcoes, regiao):
     return vulcoes_encontrados
 
 def main():
+    st.set_page_config(page_title="Dashboard de Vulcões", page_icon="🌋", layout="wide")
     add_selectbox = st.sidebar.selectbox(
     "Navegação:",
     ("HomePage", "Tipos de Vulcões")
@@ -91,6 +91,15 @@ def main():
     #SIDEBAR DE TIPOS DE VULCÕES
     if add_selectbox == "Tipos de Vulcões":
         st.title("🌋 Tipos de Vulcões Mais Comuns")
+        st.divider()
+        
+        st.subheader("Top 10 tipos mais comuns nos dados")
+        ranking = dados.top_tipos(dados.ler_arquivo())
+        st.bar_chart(
+            [{"Tipo": tipo, "Quantidade": qtd} for tipo, qtd in ranking],
+            x="Tipo",
+            y="Quantidade",
+        )
         st.divider()
         
         tipos_vulcao = dados.ler_tipos_de_vulcao()
@@ -107,7 +116,6 @@ def main():
     
     #SIDEBAR HOMEPAGE
     else:
-        st.set_page_config(page_title="Dashboard de Vulcões", page_icon="🌋", layout="wide")
         st.title("🌋 Dashboard de Vulcões")
 
         vulcoes = dados.ler_arquivo()
